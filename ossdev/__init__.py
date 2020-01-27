@@ -1,6 +1,9 @@
 # Useful doc on Python magic methods:
 # https://rszalski.github.io/magicmethods/
+
 import itertools
+import math
+
 
 
 class Vector:
@@ -46,19 +49,19 @@ class Vector:
         return sum(self.d)
 
     def __setitem__(self, key, value):
-        if isinstance(key, Vector): raise ValueError('Redundant check to make conflict')
         self.d[key] = value
+        return None
 
     def __cmp__(self, other):
-        # TODO: implement, -1 if self < other, 0 if self == other, 1 if self > other
-        return -1
+        this_vector = self.length()
+        other_vector = other.length()
+        return 0 if this_vector == other_vector else (1 if this_vector > other_vector else -1)
 
     def __neg__(self):
         return Vector([-x for x in self.d])
 
     def __reversed__(self):
-        # TODO: implement vector element reversal (hint: list(reversed(self.d)))
-        return Vector()
+        return Vector(self.d[::-1])
 
     def __add__(self, other):
         if isinstance(other, int):
@@ -67,10 +70,18 @@ class Vector:
             if len(self) != len(other): raise ValueError('Incompatible size')
             return Vector([self.d[i] + other[i] for i in range(len(self))])
 
+    # If number of dimensions are different, return the vector to be subtracted from.
     def __sub__(self, other):
         # TODO: implement vector subtraction, comment change to make conflict
+        if type(other) is int:
+            return Vector([x - other for x in self.d])
+
+        if len(self.d) != len(other.d):
+            print("Vectors of different size cannot be subtracted.")
+            return self
+
+        return Vector([a + b for a, b in zip(self.d, (-other).d)])
         # you may use __add__() and negation, like return (-self + other)
-        return None
 
     def __mul__(self, other):
         if isinstance(other, int):
@@ -92,7 +103,8 @@ class Vector:
     def __xor__(self, other):
         # TODO: support both vector element-wise XOR and by-scalar xor (like in __add__)
         # TODO: add size check
-        return Vector([self.d[i] ^ other[i] for i in range(len(self))])
+        if type(other) is int:
+            return Vector([x ^ other for x in self.d])
 
     def __and__(self, other):
         if isinstance(other, int):
@@ -106,8 +118,9 @@ class Vector:
     def length(self):
         if len(self) == 0:
             raise ValueError('Undefined for zero-length vector')  # make return 0 instead of an exception
+        return math.sqrt(sum(x * x for x in self.d))
         # TODO: implement vector length comp. (hint: return math.sqrt(sum(x*x for x in self.d)))
-        return None
+
 
     def dot(self, other):
         # TODO: implement dot-product, i.e., a.b = \sum_i a[i]*b[i],
@@ -185,4 +198,3 @@ class Matrix:
         for i, j in self.index_iter():
             m[i][j] = m[i][j] + other[i][j]
         return m
-
