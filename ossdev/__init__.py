@@ -5,7 +5,7 @@ import math
 
 class Vector:
     def __init__(self, arr=None, size=None):
-        self.d = arr if arr is not None else (([0] * size) if size else [])
+        self.d = arr if arr is not None and len(arr) != 0 else (([0] * size) if size else [])
 
     @classmethod
     def from_arr(cls, arr):
@@ -39,9 +39,6 @@ class Vector:
         return None
 
     def __cmp__(self, other):
-        if len(self.d) != other.d:
-            print("Cannot compare vectors of different size.")
-            return None
         this_vector = self.length()
         other_vector = other.length()
         return 0 if this_vector == other_vector else (1 if this_vector > other_vector else -1)
@@ -64,14 +61,12 @@ class Vector:
 
         if len(self.d) != len(other.d):
             print("Vectors of different size cannot be subtracted.")
-            return None
+            return self
 
-        return Vector([a + b for a, b in zip(self.d, -other.d)])
+        return Vector([a + b for a, b in zip(self.d, (-other).d)])
 
     def __mul__(self, other):
-        if type(other) is int:
-            return Vector([x * other for x in self.d])
-        return None
+        return Vector([x * other for x in self.d])
 
     def __xor__(self, other):
         if type(other) is int:
