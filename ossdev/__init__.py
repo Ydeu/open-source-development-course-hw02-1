@@ -55,6 +55,7 @@ class Vector:
         elif isinstance(other, Vector):
             return Vector([self.d[i] + other[i] for i in range(len(self))])
 
+    # If number of dimensions are different, return the vector to be subtracted from.
     def __sub__(self, other):
         if type(other) is int:
             return Vector([x - other for x in self.d])
