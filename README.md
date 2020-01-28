@@ -5,20 +5,31 @@ Very simple vector implementation supporting basic operations.
 ## Usage
 
 ```python
-from ossdev import Vector
+from ossdev import Vector, Matrix
 a = Vector([0, 1, 2, 3])
 print(a)
+
+m = Matrix.ident(4)
+print(m)
+print(m + m)
 ```
 
-Operations:
+Vector Operations:
 - Addition/subtraction with a scalar: a+1 | a-1
 - Vector addition/subtraction: a + b| a - b
-- Vector multiplication by a scalar value: a * 2
+- Multiplication:
+  - scalar * vector
+  - row-vector * col-vector
+  - col-vector * row-vector
 - Vector negation: -a => (1, 2, 3) = (-1, -2, -3)
 - Vector reverse: reversed(a) => (1, 2, 3) = (3, 2, 1)
 - Vector xor operation by scalar value: (2, 2, 1) ^ 3 = (1, 1, 2)
+- Vector and operation by scalar/vector
 - Vector length by Euclidean norm.
 - Vector comparison by their length.
+
+Matrix operations:
+- Addition
 
 ## Installation
 

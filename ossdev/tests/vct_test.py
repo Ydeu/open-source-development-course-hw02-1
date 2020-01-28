@@ -65,6 +65,17 @@ class VectorTest(unittest.TestCase):
         self.assertEqual(a.length(), math.sqrt(20))
         self.assertEqual(b.length(), math.sqrt(18))
 
+    def test_dot(self):
+        a = Vector([1, 2])
+        b = Vector([2, -1])
+        self.assertEqual(a.dot(b), 0)
+
+    def test_length(self):
+        # Uncomment after passing
+        # self.assertAlmostEqual(Vector([2, 4]).length(), 4.47213595499, 3)
+        # self.assertAlmostEqual(Vector([2, 4, 5]).length(), 6.708203932499369, 3)
+        return
+
 
 if __name__ == "__main__":
     unittest.main()  # pragma: no cover

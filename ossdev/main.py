@@ -1,4 +1,4 @@
-from ossdev import Vector
+from ossdev import Vector, Matrix
 
 
 def main():
@@ -8,6 +8,13 @@ def main():
     print('Vector b: %s' % b)
     print('Vector a+2: %s' % (a+2))
     print('Vector a+b: %s' % (a+b))
+
+    m = Matrix((3, 3))
+    print(m)
+
+    m1 = Matrix.ident(4)
+    print(m1)
+    print(m1 + m1)
 
 
 if __name__ == '__main__':
